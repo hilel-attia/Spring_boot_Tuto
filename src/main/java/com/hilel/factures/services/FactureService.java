@@ -4,6 +4,8 @@ package com.hilel.factures.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.hilel.factures.entities.Facture;
 
 public interface FactureService {
@@ -13,4 +15,6 @@ public interface FactureService {
 	 void deleteFactureById(Long id);
 	 Facture getFacture(Long id);
 	List<Facture> getAllFactures();
+	Page<Facture> getAllFActuresParPage(int page, int size);
+
 }

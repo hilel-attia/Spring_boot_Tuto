@@ -2,6 +2,8 @@ package com.hilel.factures.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.hilel.factures.entities.Facture;
@@ -33,5 +35,11 @@ return factureRepository.findById(id).get();
 @Override
 public List<Facture> getAllFactures() {
 return factureRepository.findAll();
+}
+
+@Override
+public Page<Facture> getAllFActuresParPage(int page, int size) {
+	return factureRepository.findAll(PageRequest.of(page, size));
+	
 }
 }

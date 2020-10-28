@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,20 +38,33 @@ String msg ="facture enregistré avec Id "+saveFacture.getIdFacture();
 modelMap.addAttribute("msg", msg);
 return "createFacture";
 }
+
 @RequestMapping("/ListeFactures")
-public String listeFactures(ModelMap modelMap)
+public String listeFactures(ModelMap modelMap,
+@RequestParam (name="page",defaultValue = "0") int page,
+@RequestParam (name="size", defaultValue = "2") int size)
 {
-List<Facture> facs = factureService.getAllFactures();
+Page<Facture> facs = factureService.getAllFActuresParPage(page, size);
 modelMap.addAttribute("factures", facs);
-return "listeFactures";
+ modelMap.addAttribute("pages", new int[facs.getTotalPages()]);
+modelMap.addAttribute("currentPage", page);
+return "listefactures";
 }
+
+
+
 @RequestMapping("/supprimerFacture")
 public String supprimerFacture(@RequestParam("id") Long id,
- ModelMap modelMap)
+ModelMap modelMap,
+@RequestParam (name="page",defaultValue = "0") int page,
+@RequestParam (name="size", defaultValue = "2") int size)
 {
 factureService.deleteFactureById(id);
-List<Facture> facs = factureService.getAllFactures();
+Page<Facture> facs = factureService.getAllFActuresParPage(page,size);
 modelMap.addAttribute("factures", facs);
+modelMap.addAttribute("pages", new int[facs.getTotalPages()]);
+modelMap.addAttribute("currentPage", page);
+modelMap.addAttribute("size", size);
 return "listeFactures";
 }
 @RequestMapping("/modifierFacture")
