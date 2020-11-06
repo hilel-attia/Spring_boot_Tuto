@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
+import com.hilel.factures.entities.Boutique;
 import com.hilel.factures.entities.Facture;
 import com.hilel.factures.repos.FactureRepository;
 import com.hilel.factures.services.FactureService;
@@ -67,5 +68,85 @@ class FacturesApplicationTests {
 	System.out.println(p);
 	} */
 	}
+	
+	@Test
+	public void testFindFactureByNom()
+	{
+	List<Facture> facs = factureRepository.findByNomFacture("dell");
+	for (Facture f : facs)
+	{
+	
+	System.out.println(f);
+	
 	}
+	}
+	@Test
+	public void testFindFactureByNomLike()
+	{
+	List<Facture> facs = factureRepository.findByNomFactureContains("f");
+	for (Facture f : facs)
+	{
+	
+	System.out.println(f);
+	}
+	}
+	
+	@Test 
+	public void testfindByNomTva() 
+	{ 
+	List<Facture> facs = factureRepository.FindByNomTva("dell", 3.2);
+	for (Facture f : facs) 
+	{ 
+	System.out.println(f); 
+	} 
+	} 
 
+	@Test 
+	public void testfindByBoutique() 
+	{ 
+	Boutique bou = new Boutique(); 
+	bou.setIdBou(1L);
+	 
+	List<Facture> facs = factureRepository.findByBoutique(bou); 
+	for (Facture f : facs) 
+	{ 
+	System.out.println(f); 
+	} 
+	} 
+
+	@Test 
+	public void findByCategorieIdCat() 
+	{ 
+	List<Facture> facs = factureRepository.findByBoutiqueIdBou(1L); 
+	for (Facture f : facs) 
+	{ 
+	System.out.println(f); 
+	} 
+	 } 
+	@Test 
+	public void testfindByOrderByNomFactureAsc() 
+	{ 
+	List<Facture> facs =  factureRepository.findByOrderByNomFactureAsc(); 
+	for (Facture f : facs) 
+	{ 
+	System.out.println(f); 
+	} 
+	}
+	
+	@Test 
+	public void testTrierFacturesNomsPrix() 
+	{ 
+	List<Facture> facs = factureRepository.trierFacturesNomsTva(); 
+	for (Facture f : facs) 
+	{ 
+	System.out.println(f); 
+	} 
+	} 
+
+
+
+	
+	
+	
+	
+}

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 @Entity
 public class Facture {
 @Id
@@ -12,6 +13,11 @@ private Long idFacture;
 private String nomFacture;
 private Double tvaFacture;
 private Date dateCreation;
+
+
+@ManyToOne//option 
+private Boutique boutique ; 
+
 public Facture() {
 super();
 }
@@ -49,6 +55,12 @@ public void setDateCreation(Date dateCreation) {
 public String toString() {
 	return "Facture [idFacture=" + idFacture + ", nomFacture=" + nomFacture + ", tvaFacture=" + tvaFacture
 			+ ", dateCreation=" + dateCreation + "]";
+}
+public Boutique getBoutique() {
+	return boutique;
+}
+public void setBoutique(Boutique boutique) {
+	this.boutique = boutique;
 }
 
 }
